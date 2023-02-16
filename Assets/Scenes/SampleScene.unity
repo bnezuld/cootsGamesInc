@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 1358615783}
   m_Layer: 0
   m_Name: floor
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -375,7 +375,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -441,7 +441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1437170787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2938356, y: -0.55241245, z: 0}
+  m_LocalPosition: {x: -5.07, y: -2.933, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -486,3 +486,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454e3bbd9e822f0438c11fb3d6193288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+  thrust: 300
