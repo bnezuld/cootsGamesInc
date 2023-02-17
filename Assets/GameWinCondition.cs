@@ -6,4 +6,6 @@ public class GameWinCondition : MonoBehaviour
 {
     public bool win;
     public bool lose;
+
+    public bool stop;
 }

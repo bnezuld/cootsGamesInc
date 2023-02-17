@@ -27,7 +27,7 @@ public class CountDownBar : MonoBehaviour
     public GameObject textCountDown;
     private TMP_Text text;
 
-    private bool _stop = false;
+    public bool stop = true;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +47,7 @@ public class CountDownBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_stop)
+        if(!stop)
         {
             if (timeRemaining > 0)
             {
@@ -89,15 +89,5 @@ public class CountDownBar : MonoBehaviour
         }
 
 
-    }
-
-    public void stop()
-    {
-        _stop = true;
-    }
-
-    public void start()
-    {
-        _stop = false;
     }
 }

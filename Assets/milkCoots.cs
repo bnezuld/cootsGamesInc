@@ -35,19 +35,22 @@ public class milkCoots : GameWinCondition
 
     void OnMouseDown() 
     {
-        spriteRend.sprite = catMilk[1];
-        
-        milkFilled++;
-        if(milkFilled > milkRequired)
+        if(!stop)
         {
-            win = true;
-        }
+            spriteRend.sprite = catMilk[1];
+            
+            milkFilled++;
+            if(milkFilled >= milkRequired)
+            {
+                win = true;
+            }
 
-        int fill = (int)((float)milkFilled/milkRequired*milkJugSprites.Length);
-        if(fill >= milkJugSprites.Length)
-            fill = milkJugSprites.Length - 1;
-        Debug.Log(fill);
-        MilkJugSpriteRend.sprite = milkJugSprites[fill];
+            int fill = (int)Mathf.Floor(((float)milkFilled/milkRequired*(milkJugSprites.Length-1)));
+            if(fill > milkJugSprites.Length - 1)
+                fill = milkJugSprites.Length - 1;
+            Debug.Log(fill);
+            MilkJugSpriteRend.sprite = milkJugSprites[fill];
+        }
     }
 
     void OnMouseUp() 
