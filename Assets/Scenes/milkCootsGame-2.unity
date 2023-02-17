@@ -1203,6 +1203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countDown: {fileID: 1513196950}
   winCondit: {fileID: 152425385}
+  sceneName: milkCootsGame
 --- !u!4 &1269433971
 Transform:
   m_ObjectHideFlags: 0
@@ -1687,7 +1688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99da35e819f187e4a9621d172f590300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 3
+  totalTime: 6
   timeRemaining: 3
   destination: {fileID: 482602311}
   progress: {fileID: 1286729293}

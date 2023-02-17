@@ -91,8 +91,13 @@ public class CountDownBar : MonoBehaviour
 
     }
 
-    void stop()
+    public void stop()
     {
         _stop = true;
+    }
+
+    public void start()
+    {
+        _stop = false;
     }
 }

@@ -1203,6 +1203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countDown: {fileID: 1513196950}
   winCondit: {fileID: 152425385}
+  sceneName: milkCootsGame-2
 --- !u!4 &1269433971
 Transform:
   m_ObjectHideFlags: 0
