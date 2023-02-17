@@ -46,7 +46,7 @@ public class moveCharacter : MonoBehaviour
         {
             transform.position += -1 * transform.right * speed * Time.deltaTime;
         }
-        if(Input.GetKey("w"))
+        if(Input.GetKey("w") || Input.GetKey("space"))
         {
             if(isGrounded)
             {
