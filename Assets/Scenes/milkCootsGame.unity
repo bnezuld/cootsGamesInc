@@ -5774,7 +5774,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 10000
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10544,7 +10544,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 970bfcaf2c960e043a87842148841950, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 11f2a8094f30ea64e8a9ddfacdc0bb74, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -12204,11 +12204,11 @@ MonoBehaviour:
   intro: {fileID: 2139265725}
   introTime: 3
   retry: {fileID: 1238839357}
-  retryTime: 2
+  retryTime: 2.5
   outro: {fileID: 343148033}
-  outroTime: 2
+  outroTime: 2.5
   gameOver: {fileID: 518851834}
-  gameOverTime: 3
+  gameOverTime: 15
   blood: {fileID: 459511075}
   hearts: {fileID: 192409655}
 --- !u!4 &1269433971

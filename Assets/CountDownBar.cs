@@ -48,8 +48,13 @@ public class CountDownBar : MonoBehaviour
     }
 
     public void stopTick()
-    {
+    {     
         ticking.mute  = true;
+    }
+
+    public void resetPitch()
+    {
+        ticking.pitch = 1f;       
     }
 
     // Update is called once per frame
@@ -85,8 +90,9 @@ public class CountDownBar : MonoBehaviour
                     case 1:
                     // ticking.pitch = 1.75f;
                     break;
-                    case 0:                 
-                    ticking.mute  = true;
+                    case 0:       
+                    ticking.pitch = 1f;          
+                    // ticking.mute  = true;
                     break;
                 }
                 // switch(Math.Floor(timeRemaining))

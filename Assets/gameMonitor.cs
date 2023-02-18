@@ -80,7 +80,7 @@ public class gameMonitor : MonoBehaviour
                 if(winCondit.win)
                 {
                     stop(true);
-                    countDown.stopTick();
+                    countDown.resetPitch();
                     state = 2;
                 }
                 if(winCondit.lose)
@@ -126,6 +126,7 @@ public class gameMonitor : MonoBehaviour
                 break;
             case 4:
             //gameover
+                countDown.stopTick();
                 if(gameOver != null)
                     gameOver.SetActive(true);
                 gameOverTime -= Time.deltaTime;
