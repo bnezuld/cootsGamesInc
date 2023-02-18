@@ -27,9 +27,23 @@ public class gameMonitor : MonoBehaviour
     public GameObject outro;
     public float outroTime;
 
+    public GameObject gameOver;
+    public float gameOverTime;
+
+    public GameObject blood;    
+    public GameObject hearts;
+
     // Start is called before the first frame update
     void Start()
     {
+        if(intro != null)
+            intro.SetActive(true);
+        if(retry != null)
+            retry.SetActive(false);
+        if(outro != null)
+            outro.SetActive(false);
+        if(gameOver != null)
+            gameOver.SetActive(false);
         stop(true);
     }
 
@@ -60,12 +74,13 @@ public class gameMonitor : MonoBehaviour
                 {
                     countDown.timeRemaining = 6;
                     lives--;
-                    state = 2;
+                    state = 3;
                     stop(true);
                 }
                 if(winCondit.win)
                 {
                     stop(true);
+                    countDown.stopTick();
                     state = 2;
                 }
                 if(winCondit.lose)
@@ -74,7 +89,7 @@ public class gameMonitor : MonoBehaviour
                     //show some lose screen
                     intro.SetActive(true);
                     lives--;
-                    state = 2;
+                    state = 3;
                 }
                 if(lives <= 0)
                 {
@@ -83,6 +98,7 @@ public class gameMonitor : MonoBehaviour
                 break;
             case 2:
             //win
+                hearts.SetActive(true);
                 if(outro != null)
                     outro.SetActive(true);
                 outroTime -= Time.deltaTime;
@@ -95,10 +111,27 @@ public class gameMonitor : MonoBehaviour
             //retry
                 if(retry != null)
                     retry.SetActive(true);
+                blood.SetActive(true);
                 retryTime -= Time.deltaTime;
                 if(retryTime <= 0)
                 {
-                    Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+                    if(lives <= 0)
+                    {
+                        state = 4;
+                    }else
+                    {
+                        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+                    }
+                }
+                break;
+            case 4:
+            //gameover
+                if(gameOver != null)
+                    gameOver.SetActive(true);
+                gameOverTime -= Time.deltaTime;
+                if(gameOverTime <= 0)
+                {
+                    Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene("MainMenu");
                 }
                 break;
         }

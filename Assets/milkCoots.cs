@@ -16,6 +16,9 @@ public class milkCoots : GameWinCondition
     public GameObject MilkJug;
     private SpriteRenderer MilkJugSpriteRend;
 
+    private AudioSource audioSource_milking;    
+    public AudioClip clip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,8 @@ public class milkCoots : GameWinCondition
 
         MilkJugSpriteRend = MilkJug.GetComponent<SpriteRenderer>();
         MilkJugSpriteRend.sprite = milkJugSprites[0];
+
+        audioSource_milking = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +42,10 @@ public class milkCoots : GameWinCondition
     {
         if(!stop)
         {
+            if(!audioSource_milking.isPlaying)
+            {
+                audioSource_milking.PlayOneShot(clip, 1);
+            }
             spriteRend.sprite = catMilk[1];
             
             milkFilled++;

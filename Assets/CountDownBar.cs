@@ -29,10 +29,12 @@ public class CountDownBar : MonoBehaviour
 
     public bool stop = true;
 
+    private AudioSource ticking;
+
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = progress.GetComponent<SpriteRenderer>();
+        spriteRenderer = destination.GetComponent<SpriteRenderer>();
 
         StartingLocation = (int)progress.transform.localPosition .x;
         TransitionLocation = (int)destination.transform.localPosition .x;
@@ -41,7 +43,13 @@ public class CountDownBar : MonoBehaviour
         startLocationy = destination.transform.localPosition.y;
 
         text = textCountDown.GetComponent<TMP_Text>();
+        ticking = GetComponent<AudioSource>();
 
+    }
+
+    public void stopTick()
+    {
+        ticking.mute  = true;
     }
 
     // Update is called once per frame
@@ -49,6 +57,8 @@ public class CountDownBar : MonoBehaviour
     {
         if(!stop)
         {
+            
+            ticking.mute  = false;
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
@@ -64,6 +74,21 @@ public class CountDownBar : MonoBehaviour
                 // Then assign a new vector3
                 destination.transform.localPosition = new Vector3 (x, y, z);
                 text.text = ((int)Mathf.Ceil(timeRemaining)).ToString();
+                switch((int)Mathf.Ceil(timeRemaining))
+                {
+                    case 3:
+                    ticking.pitch = 1.25f;
+                    break;
+                    case 2:
+                    ticking.pitch = 1.5f;
+                    break;
+                    case 1:
+                    // ticking.pitch = 1.75f;
+                    break;
+                    case 0:                 
+                    ticking.mute  = true;
+                    break;
+                }
                 // switch(Math.Floor(timeRemaining))
                 // {
                 //     case 3:
@@ -86,6 +111,8 @@ public class CountDownBar : MonoBehaviour
 
                 // }
             }
+        // }else{            
+        //     ticking.mute  = true;
         }
 
 
