@@ -5,16 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: f1c1cbf5a4c84a743a5f6584a36dcebb
-  - enabled: 0
-    path: Assets/Scenes/milkCootsGame-2.unity
-    guid: 2ab2e0e54e5489c4399f8b7cbecc77c2
   - enabled: 1
     path: Assets/Scenes/milkCootsGame.unity
     guid: 1aa9bb03548a9c441b7a20b66abf3654
+  - enabled: 1
+    path: Assets/Scenes/chessMate.unity
+    guid: 28775b1134f222643b8e813fe1da2965
   m_configObjects: {}

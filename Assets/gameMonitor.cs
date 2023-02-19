@@ -11,7 +11,7 @@ public class gameMonitor : MonoBehaviour
     public static int miniGames;
     public static int lives = 3;
 
-    public string sceneName;
+    public string nextSceneName;
 
     public string mainMenuScene;
 
@@ -104,7 +104,7 @@ public class gameMonitor : MonoBehaviour
                 outroTime -= Time.deltaTime;
                 if(outroTime <= 0)
                 {
-                    SceneManager.LoadScene(sceneName);
+                    SceneManager.LoadScene(nextSceneName);
                 }
                 break;
             case 3:
