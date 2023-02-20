@@ -14,6 +14,12 @@ public class jumpKitty : GameWinCondition
 
     private Rigidbody2D _rigidbody;
     private Vector2 preVelocity;
+
+    public float jumpScaler;
+    public float jumpLimit;
+    public float jumpMulti;
+    public float jumpForward;
+    public float jumpMin;
     
 
     void Awake()
@@ -53,8 +59,6 @@ public class jumpKitty : GameWinCondition
             Vector2 center = GetComponent<Collider2D>().bounds.center;
             Debug.Log("c: " + center + " cont:" + contactPoint + " h:" + RectHeight);
             Debug.Log(contactPoint.y +"<"+ center.y +"+"+ RectHeight +"/"+ 2 +"&&"+ contactPoint.y +">"+ center.y +"-"+ RectHeight +"/"+ 2);
-            Debug.Log("value:" + (center.y - RectHeight / 2));
-            Debug.Log((contactPoint.x > center.x) + " " + (contactPoint.y < center.y + RectHeight / 2) + " " + (contactPoint.y > center.y - RectHeight / 2));
             if (contactPoint.y > center.y && //checks that circle is on top of rectangle
                 (contactPoint.x < center.x + RectWidth / 2 && contactPoint.x > center.x - RectWidth / 2)) {
                 Debug.Log("top");
@@ -70,21 +74,18 @@ public class jumpKitty : GameWinCondition
                 (contactPoint.y < center.y + RectHeight / 2 && contactPoint.y > center.y - RectHeight / 2)) {
                 Debug.Log("right");
                 // collideFromRight = true;
-                            Debug.Log("wall" + _rigidbody.velocity);
-            _rigidbody.velocity = new Vector2(-preVelocity.x,_rigidbody.velocity.y);
-            Debug.Log("wall2" + _rigidbody.velocity);
+                Debug.Log("wall" + _rigidbody.velocity);
+                _rigidbody.velocity = new Vector2(-preVelocity.x*0.5f,_rigidbody.velocity.y);
+                Debug.Log("wall2" + _rigidbody.velocity);
             }
             else if (contactPoint.x < center.x &&
                 (contactPoint.y <= center.y + RectHeight / 2 && contactPoint.y >= center.y - RectHeight / 2)) {
                 // collideFromLeft = true;
                 Debug.Log("left");
-                _rigidbody.velocity = new Vector2(-preVelocity.x,_rigidbody.velocity.y);
+                Debug.Log("wall" + _rigidbody.velocity);
+                _rigidbody.velocity = new Vector2(-preVelocity.x*0.5f,_rigidbody.velocity.y);
+                Debug.Log("wall2" + _rigidbody.velocity);
             }
-        }
-        if(collision.gameObject.tag == "wall"){
-            Debug.Log("wall" + _rigidbody.velocity);
-            _rigidbody.velocity = new Vector2(-preVelocity.x,_rigidbody.velocity.y);
-            Debug.Log("wall2" + _rigidbody.velocity);
         }
     }
 
@@ -100,7 +101,7 @@ public class jumpKitty : GameWinCondition
     {
         preVelocity = _rigidbody.velocity;
         Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-        Vector2 scale = new Vector2(gameObject.transform.localScale.x, gameObject.transform.localScale.y);
+        Vector2 scale = new Vector2(gameObject.transform.localScale.x+.05f, gameObject.transform.localScale.y+.05f);
         Collider2D[] Colliders = Physics2D.OverlapBoxAll(pos,
                                     scale,
                                     0.0f);
@@ -109,7 +110,7 @@ public class jumpKitty : GameWinCondition
         {
             // Debug.Log(Colliders[i].gameObject.tag);
             if(Colliders[i].gameObject.tag == "ground"){
-                isGrounded = true;
+                //isGrounded = true;
                 found = true;
             }
         }
@@ -125,24 +126,27 @@ public class jumpKitty : GameWinCondition
         {
             if(isGrounded)
             {
-                jump += Time.deltaTime * 200;
-                if(jump > 125)
+                jump += Time.deltaTime * jumpScaler;
+                if(jump > jumpLimit)
                 {
-                    jump = 125;
+                    jump = jumpLimit;
                 }
             }
         }else if(isGrounded && jump > 0)
         {
-            Debug.Log("jump: " + jump);
-            _rigidbody.AddForce(transform.up * jump * 3f);
-            if(Input.GetKey("d"))
+            if(jump > jumpMin)
             {
-                _rigidbody.AddForce(transform.right * jump);
-            }
-            if(Input.GetKey("a"))
-            {
-                _rigidbody.AddForce(-transform.right * jump);
-            }   
+                Debug.Log("jump: " + jump);
+                _rigidbody.AddForce(transform.up * jump * jumpMulti);
+                if(Input.GetKey("d"))
+                {
+                    _rigidbody.AddForce(transform.right * jumpForward);
+                }
+                if(Input.GetKey("a"))
+                {
+                    _rigidbody.AddForce(-transform.right * jumpForward);
+                }  
+            } 
             jump = 0;
         }  
         if(jump == 0 && isGrounded)

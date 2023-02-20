@@ -12311,7 +12311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countDown: {fileID: 1513196950}
   winCondit: {fileID: 633587377}
-  nextSceneName: MainMenu
+  nextSceneName: JumpKitty
   mainMenuScene: 
   intro: {fileID: 2139265725}
   introTime: 3
