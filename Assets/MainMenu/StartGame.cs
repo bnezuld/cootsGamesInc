@@ -7,6 +7,7 @@ public class StartGame : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
+        gameMonitor.lives = 3;
         SceneManager.LoadScene(sceneName);
     }
 }
