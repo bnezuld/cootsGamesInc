@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JumpKitty.unity
     guid: c3775b8386a9ee24a84b1a89fefb8de3
+  - enabled: 1
+    path: Assets/Scenes/battleShit.unity
+    guid: 2aa9887868df91a4f805be8b5a6e86ee
   m_configObjects: {}

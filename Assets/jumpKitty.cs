@@ -166,11 +166,11 @@ public class jumpKitty : GameWinCondition
             {
                 Debug.Log("jump: " + jump);
                 _rigidbody.AddForce(transform.up * jump * jumpMulti);
-                if(Input.GetKey("d"))
+                if(Input.GetKey("d") || Input.GetKey("right"))
                 {
                     _rigidbody.AddForce(transform.right * jumpForward);
                 }
-                if(Input.GetKey("a"))
+                if(Input.GetKey("a") || Input.GetKey("left"))
                 {
                     _rigidbody.AddForce(-transform.right * jumpForward);
                 }  
@@ -180,13 +180,13 @@ public class jumpKitty : GameWinCondition
         else if(jump == 0 && isGrounded)
         {
  
-            if(Input.GetKey("d"))
+            if(Input.GetKey("d") || Input.GetKey("right"))
             {
                 walkState+=Time.deltaTime*4;
                 _rigidbody.velocity = new Vector2(speed, 0);
                 // transform.position += transform.right * speed * Time.deltaTime;
             }
-            if(Input.GetKey("a"))
+            if(Input.GetKey("a") || Input.GetKey("left"))
             {
                 walkState+=Time.deltaTime*4;
                 _rigidbody.velocity = new Vector2(-speed, 0);
@@ -197,7 +197,7 @@ public class jumpKitty : GameWinCondition
             {
                 walkState = 0;
             }
-            if(!Input.GetKey("d") && !Input.GetKey("a"))
+            if(!Input.GetKey("d") && !Input.GetKey("right") && !Input.GetKey("a") && !Input.GetKey("left"))
             {
                 _rigidbody.velocity = new Vector2(0, 0);
                 spriteRend.sprite = defaultSprite;
@@ -209,11 +209,11 @@ public class jumpKitty : GameWinCondition
 
         if(isGrounded)
         {
-            if(Input.GetKey("d"))
+            if(Input.GetKey("d") || Input.GetKey("right"))
             {
                 spriteRend.flipX = true;
             }
-            if(Input.GetKey("a"))
+            if(Input.GetKey("a") || Input.GetKey("left"))
             {
                 spriteRend.flipX = false;
             }
