@@ -70,7 +70,8 @@ public class jumpKitty : GameWinCondition
             Debug.Log(contactPoint.y +"<"+ center.y +"+"+ RectHeight +"/"+ 2 +"&&"+ contactPoint.y +">"+ center.y +"-"+ RectHeight +"/"+ 2);
             if (contactPoint.y > center.y && //checks that circle is on top of rectangle
                 (contactPoint.x < center.x + RectWidth / 2 && contactPoint.x > center.x - RectWidth / 2)) {
-                Debug.Log("top");
+                Debug.Log("top");                
+                _rigidbody.velocity = new Vector2(preVelocity.x,preVelocity.y);
             }
             else if (contactPoint.y < center.y &&
                 (contactPoint.x < center.x + RectWidth / 2 && contactPoint.x > center.x - RectWidth / 2)) {
@@ -94,6 +95,10 @@ public class jumpKitty : GameWinCondition
                 Debug.Log("wall2" + _rigidbody.velocity + " a:" + preAnglVelocisty);
             }
         }
+        if(collision.gameObject.tag == "win")
+        {
+            win = true;
+        }
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -106,7 +111,7 @@ public class jumpKitty : GameWinCondition
     void OnDrawGizmos()
     {
         Vector2 pos = GetComponent<Collider2D>().bounds.center;
-        Vector2 scale = GetComponent<Collider2D>().bounds.extents * 2+ new Vector3(.01f,.01f, 0);
+        Vector2 scale = GetComponent<Collider2D>().bounds.extents * 2+ new Vector3(.05f,.05f, 0);
         // scale = scale * 
         Gizmos.color = new Color(1, 0, 0, 0.5f);
         Gizmos.DrawCube(new Vector3(pos.x, pos.y, 0), new Vector3(scale.x, scale.y, 1));
@@ -118,7 +123,7 @@ public class jumpKitty : GameWinCondition
         preVelocity = _rigidbody.velocity;
         preAnglVelocisty = _rigidbody.angularVelocity;
         Vector2 pos = GetComponent<Collider2D>().bounds.center;
-        Vector2 scale = GetComponent<Collider2D>().bounds.extents * 2+ new Vector3(.001f,.001f, 0);
+        Vector2 scale = GetComponent<Collider2D>().bounds.extents * 2+ new Vector3(.05f,.05f, 0);
         Collider2D[] Colliders = Physics2D.OverlapBoxAll(pos,
                                     scale,
                                     0.0f);
