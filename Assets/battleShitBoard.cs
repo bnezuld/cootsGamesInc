@@ -50,7 +50,7 @@ public class battleShitBoard : GameWinCondition
             {
                 highlightedSquare.transform.localPosition = ((Vector3)tilemapPos * .5f) + new Vector3(-1.5f,-1.5f,0f);
                 highlightedSquare.SetActive(true);
-                if(Input.GetMouseButtonDown(0))
+                if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0))
                 {
                     if(guesses[tilemapPos.x,tilemapPos.y] == null)
                     {
@@ -119,20 +119,27 @@ public class battleShitBoard : GameWinCondition
                             x = Random.Range(0,8);
                         }
                         int directionRand = Random.Range(0,4);
+                        Debug.Log(directionRand);
                         Vector2 direction = new Vector2(0,0);
+                        float rotation = 0.0f;
+                        float offset = 0;
                         switch(directionRand)
                         {
                             case 0:
                                 direction = new Vector2(-1,0);
+                                offset = 0.5f;
                             break;
                             case 1:
+                                rotation = -90;
                                 direction = new Vector2(0,-1);
                             break;
                             case 2:
                                 direction = new Vector2(1,0);
                             break;
                             case 3:
+                                rotation = -90;
                                 direction = new Vector2(0,1);
+                                offset = 0.5f;
                             break;
                         }
                         bool noneFound = true;
@@ -155,6 +162,9 @@ public class battleShitBoard : GameWinCondition
                         }
                         if(noneFound)
                         {
+                            shipObjects[shipSize].transform.localPosition = (new Vector3(x,y,0) * .5f) + new Vector3(-1.5f,-1.5f,0f) + (new Vector3(direction.x,direction.y,0f) * (shipSize-1) * offset);
+                            shipObjects[shipSize].transform.Rotate(0,0,rotation);
+                            // Vector2 checkDir = new Vector2(x,y)
                             for(int checkPos = 0; checkPos < shipSize; checkPos++)
                             {
                                 Vector2 checkDir = new Vector2(x,y) + (direction * checkPos);
