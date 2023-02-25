@@ -72,7 +72,7 @@ public class gameMonitor : MonoBehaviour
                 //play game
                 if(countDown.timeRemaining <= 0)
                 {
-                    countDown.timeRemaining = 6;
+                    // countDown.timeRemaining = 6;
                     lives--;
                     state = 3;
                     stop(true);
@@ -87,7 +87,6 @@ public class gameMonitor : MonoBehaviour
                 {
                     stop(true);
                     //show some lose screen
-                    intro.SetActive(true);
                     lives--;
                     state = 3;
                 }

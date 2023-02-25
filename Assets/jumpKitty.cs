@@ -50,8 +50,8 @@ public class jumpKitty : GameWinCondition
     {
         
         Vector2 scale = GetComponent<Collider2D>().bounds.extents * 2;
-        float RectWidth = scale.x;
-        float RectHeight = scale.y;
+        float RectWidth = scale.x + .05f;
+        float RectHeight = scale.y + .05f;
         // Debug.Log(collision.gameObject.tag);
         if(collision.gameObject.tag == "ground" && !isGrounded){
             _rigidbody.velocity = Vector3.zero;
@@ -68,17 +68,17 @@ public class jumpKitty : GameWinCondition
             Vector2 center = GetComponent<Collider2D>().bounds.center;
             Debug.Log("c: " + center + " cont:" + contactPoint + " h:" + RectHeight);
             Debug.Log(contactPoint.y +"<"+ center.y +"+"+ RectHeight +"/"+ 2 +"&&"+ contactPoint.y +">"+ center.y +"-"+ RectHeight +"/"+ 2);
-            if (contactPoint.y > center.y && //checks that circle is on top of rectangle
+            if (contactPoint.y - .2f > center.y &&//checks that circle is on top of rectangle
                 (contactPoint.x < center.x + RectWidth / 2 && contactPoint.x > center.x - RectWidth / 2)) {
                 Debug.Log("top");                
                 _rigidbody.velocity = new Vector2(preVelocity.x,preVelocity.y);
             }
-            else if (contactPoint.y < center.y &&
+            else if (contactPoint.y + .2f < center.y &&
                 (contactPoint.x < center.x + RectWidth / 2 && contactPoint.x > center.x - RectWidth / 2)) {
                 Debug.Log("bottom");
                 isGrounded = true;
             }
-            else if (contactPoint.x > center.x &&
+            else if (contactPoint.x - .2f > center.x &&
                 (contactPoint.y < center.y + RectHeight / 2 && contactPoint.y > center.y - RectHeight / 2)) {
                 Debug.Log("right");
                 Debug.Log("wall" + _rigidbody.velocity + " a:" + _rigidbody.angularVelocity);
@@ -86,7 +86,7 @@ public class jumpKitty : GameWinCondition
                 spriteRend.flipX = false;
                 Debug.Log("wall2" + _rigidbody.velocity + " a:" + preAnglVelocisty);
             }
-            else if (contactPoint.x < center.x &&
+            else if (contactPoint.x +.2f < center.x &&
                 (contactPoint.y <= center.y + RectHeight / 2 && contactPoint.y >= center.y - RectHeight / 2)) {
                 Debug.Log("left");
                 Debug.Log("wall" + _rigidbody.velocity + " a:" + _rigidbody.angularVelocity);

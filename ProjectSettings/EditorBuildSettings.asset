@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/battleShit.unity
     guid: 2aa9887868df91a4f805be8b5a6e86ee
+  - enabled: 1
+    path: Assets/Scenes/Reject.unity
+    guid: 633b082abd7e05c4782fd86d873670cf
+  - enabled: 1
+    path: Assets/Scenes/TypeCat.unity
+    guid: 49ea3378ae5355f45ab578edea88b3ff
   m_configObjects: {}
