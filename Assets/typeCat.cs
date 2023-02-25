@@ -47,6 +47,9 @@ public class typeCat : GameWinCondition
         {           
             textRender.enabled = true;
             checkInput();
+        }else
+        {
+            textRender.enabled = false;
         }
     }
 

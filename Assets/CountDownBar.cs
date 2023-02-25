@@ -62,8 +62,7 @@ public class CountDownBar : MonoBehaviour
     {
         if(!stop)
         {
-            
-            ticking.mute  = false;
+            // ticking.mute  = false;
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;

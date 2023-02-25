@@ -26,6 +26,7 @@ public class ButtonHandler : GameWinCondition
     private SpriteRenderer spriteRend;
 
     public TMP_Text gameText;
+    public AudioSource buzzer;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +78,7 @@ public class ButtonHandler : GameWinCondition
                 timerForLose -=  Time.deltaTime;
                 if(timerForLose < 0)
                 {
+                    buzzer.Play();
                     spriteRend.sprite = redPressed;
                     gameText.text = "<color=#ff0000>Rejected";
                     RightHandDesitination = new Vector3(4,rightHand.transform.position.y,rightHand.transform.position.z);
@@ -93,6 +95,7 @@ public class ButtonHandler : GameWinCondition
             Pressed = true;
             if(active)
             {
+                buzzer.Play();
                 spriteRend.sprite = redPressed;
                 win = true;
                 gameText.text = "<color=#00ff00>Reject";

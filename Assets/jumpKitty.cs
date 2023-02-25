@@ -120,106 +120,111 @@ public class jumpKitty : GameWinCondition
     // Update is called once per frame
     void FixedUpdate()
     {
-        preVelocity = _rigidbody.velocity;
-        preAnglVelocisty = _rigidbody.angularVelocity;
-        Vector2 pos = GetComponent<Collider2D>().bounds.center;
-        Vector2 scale = GetComponent<Collider2D>().bounds.extents * 2+ new Vector3(.05f,.05f, 0);
-        Collider2D[] Colliders = Physics2D.OverlapBoxAll(pos,
-                                    scale,
-                                    0.0f);
-        bool found = false;
-        for(int i = 0; i < Colliders.Length; i++)
-        {
-            // Debug.Log(Colliders[i].gameObject.tag);
-            if(Colliders[i].gameObject.tag == "ground"){
-                //isGrounded = true;
-                found = true;
-            }
-        }
-        if(!found)
-        {
-            isGrounded = false;
-        }
-
         Vector3 velocity = new Vector3(0,0,0);
         gameCamera.transform.position = Vector3.SmoothDamp(gameCamera.transform.position, transform.position + new Vector3(_rigidbody.velocity.x/2, (_rigidbody.velocity.y/2)+1f,-10), ref velocity, .1f);
-        // gameCamera.transform.position = transform.position + new Vector3(0,0,-10);
-        if(Input.GetKey("w") || Input.GetKey("space"))
+
+        if(!stop)
         {
-            if(isGrounded)
+            preVelocity = _rigidbody.velocity;
+            preAnglVelocisty = _rigidbody.angularVelocity;
+            Vector2 pos = GetComponent<Collider2D>().bounds.center;
+            Vector2 scale = GetComponent<Collider2D>().bounds.extents * 2+ new Vector3(.05f,.05f, 0);
+            Collider2D[] Colliders = Physics2D.OverlapBoxAll(pos,
+                                        scale,
+                                        0.0f);
+            bool found = false;
+            for(int i = 0; i < Colliders.Length; i++)
             {
-                _rigidbody.velocity = new Vector2(0, 0);
-                spriteRend.sprite = jumping[0];
-                jump += Time.deltaTime * jumpScaler;
-                if(jump < jumpMin)
-                {
-                    jump = jumpMin;
-                }
-                if(jump > jumpLimit)
-                {
-                    jump = jumpLimit;
+                // Debug.Log(Colliders[i].gameObject.tag);
+                if(Colliders[i].gameObject.tag == "ground"){
+                    //isGrounded = true;
+                    found = true;
                 }
             }
-        }else if(isGrounded && jump > 0)
-        {
-            if(jump > jumpMin)
+            if(!found)
             {
-                Debug.Log("jump: " + jump);
-                _rigidbody.AddForce(transform.up * jump * jumpMulti);
+                isGrounded = false;
+            }
+
+
+            // gameCamera.transform.position = transform.position + new Vector3(0,0,-10);
+            if(Input.GetKey("w") || Input.GetKey("space"))
+            {
+                if(isGrounded)
+                {
+                    _rigidbody.velocity = new Vector2(0, 0);
+                    spriteRend.sprite = jumping[0];
+                    jump += Time.deltaTime * jumpScaler;
+                    if(jump < jumpMin)
+                    {
+                        jump = jumpMin;
+                    }
+                    if(jump > jumpLimit)
+                    {
+                        jump = jumpLimit;
+                    }
+                }
+            }else if(isGrounded && jump > 0)
+            {
+                if(jump > jumpMin)
+                {
+                    Debug.Log("jump: " + jump);
+                    _rigidbody.AddForce(transform.up * jump * jumpMulti);
+                    if(Input.GetKey("d") || Input.GetKey("right"))
+                    {
+                        _rigidbody.AddForce(transform.right * jumpForward);
+                    }
+                    if(Input.GetKey("a") || Input.GetKey("left"))
+                    {
+                        _rigidbody.AddForce(-transform.right * jumpForward);
+                    }  
+                } 
+                jump = 0;
+            }  
+            else if(jump == 0 && isGrounded)
+            {
+    
                 if(Input.GetKey("d") || Input.GetKey("right"))
                 {
-                    _rigidbody.AddForce(transform.right * jumpForward);
+                    walkState+=Time.deltaTime*4;
+                    _rigidbody.velocity = new Vector2(speed, 0);
+                    // transform.position += transform.right * speed * Time.deltaTime;
                 }
                 if(Input.GetKey("a") || Input.GetKey("left"))
                 {
-                    _rigidbody.AddForce(-transform.right * jumpForward);
-                }  
-            } 
-            jump = 0;
-        }  
-        else if(jump == 0 && isGrounded)
-        {
- 
-            if(Input.GetKey("d") || Input.GetKey("right"))
-            {
-                walkState+=Time.deltaTime*4;
-                _rigidbody.velocity = new Vector2(speed, 0);
-                // transform.position += transform.right * speed * Time.deltaTime;
-            }
-            if(Input.GetKey("a") || Input.GetKey("left"))
-            {
-                walkState+=Time.deltaTime*4;
-                _rigidbody.velocity = new Vector2(-speed, 0);
-                // transform.position += -1 * transform.right * speed * Time.deltaTime;
+                    walkState+=Time.deltaTime*4;
+                    _rigidbody.velocity = new Vector2(-speed, 0);
+                    // transform.position += -1 * transform.right * speed * Time.deltaTime;
+                }
+
+                if(walkState > walking.Length)
+                {
+                    walkState = 0;
+                }
+                if(!Input.GetKey("d") && !Input.GetKey("right") && !Input.GetKey("a") && !Input.GetKey("left"))
+                {
+                    _rigidbody.velocity = new Vector2(0, 0);
+                    spriteRend.sprite = defaultSprite;
+                }else
+                {
+                    spriteRend.sprite = walking[(int)Mathf.Floor(walkState)];
+                }
             }
 
-            if(walkState > walking.Length)
+            if(isGrounded)
             {
-                walkState = 0;
-            }
-            if(!Input.GetKey("d") && !Input.GetKey("right") && !Input.GetKey("a") && !Input.GetKey("left"))
-            {
-                _rigidbody.velocity = new Vector2(0, 0);
-                spriteRend.sprite = defaultSprite;
+                if(Input.GetKey("d") || Input.GetKey("right"))
+                {
+                    spriteRend.flipX = true;
+                }
+                if(Input.GetKey("a") || Input.GetKey("left"))
+                {
+                    spriteRend.flipX = false;
+                }
             }else
             {
-                spriteRend.sprite = walking[(int)Mathf.Floor(walkState)];
+                spriteRend.sprite = jumping[1];
             }
-        }
-
-        if(isGrounded)
-        {
-            if(Input.GetKey("d") || Input.GetKey("right"))
-            {
-                spriteRend.flipX = true;
-            }
-            if(Input.GetKey("a") || Input.GetKey("left"))
-            {
-                spriteRend.flipX = false;
-            }
-        }else
-        {
-            spriteRend.sprite = jumping[1];
         }
     }
 }

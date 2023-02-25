@@ -33,6 +33,9 @@ public class gameMonitor : MonoBehaviour
     public GameObject blood;    
     public GameObject hearts;
 
+
+    public GameObject escape;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,9 +56,29 @@ public class gameMonitor : MonoBehaviour
         countDown.stop = stop;
     }
 
+    public void toggleEscape()
+    {
+        escape.SetActive(!escape.activeSelf);
+        stop(escape.activeSelf);
+    }
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void Exit()
+    {
+       Application.Quit(); 
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown("escape") && state != 0)
+        {
+            toggleEscape();
+        }
         switch(state)
         {
             case 0:
