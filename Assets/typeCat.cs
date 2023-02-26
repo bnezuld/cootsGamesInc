@@ -60,11 +60,21 @@ public class typeCat : GameWinCondition
             string keysPressed = Input.inputString;
 
             if(keysPressed.Length == 1)
-                EnterLetter(keysPressed);
+            {
+                EnterLetter(keysPressed[0]);
+            }
+            else
+            {
+                for(int i  = 0; i < keysPressed.Length; i++)
+                {                    
+                    EnterLetter(keysPressed[i]);
+                }
+
+            }
         }
     }
 
-    void EnterLetter(string letter)
+    void EnterLetter(char letter)
     {
         if(checkLetter(letter))
         {
@@ -84,7 +94,7 @@ public class typeCat : GameWinCondition
         }
     }
 
-    bool checkLetter(string letter)
+    bool checkLetter(char letter)
     {
         return remaining.IndexOf(letter) == 0;
     }
